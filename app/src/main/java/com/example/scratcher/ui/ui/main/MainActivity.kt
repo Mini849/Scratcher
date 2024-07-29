@@ -1,4 +1,4 @@
-package com.example.scratcher.ui.activities.main
+package com.example.scratcher.ui.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

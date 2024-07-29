@@ -1,12 +1,12 @@
-package com.example.scratcher.ui.activities.main
+package com.example.scratcher.ui.ui.main
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.scratcher.ui.activities.activation_screen.ActivationScreen
-import com.example.scratcher.ui.activities.scratch_screen.ScratchScreen
+import com.example.scratcher.ui.ui.activation_screen.ActivationScreen
+import com.example.scratcher.ui.ui.scratch_screen.ScratchScreen
 import kotlinx.serialization.Serializable
 
 sealed interface Routes {
@@ -30,14 +30,15 @@ fun NavHost(navController: NavHostController = rememberNavController()) {
         startDestination = Routes.Main,
     ) {
         composable<Routes.Main> {
-            MainScreen()
+            MainScreen(navController)
         }
         composable<Routes.ActivationScreen> {
-            ActivationScreen()
+            ActivationScreen(navController)
         }
         composable<Routes.ScratchScreen> {
-            ScratchScreen()
+            ScratchScreen(navController)
         }
     }
 
 }
+
