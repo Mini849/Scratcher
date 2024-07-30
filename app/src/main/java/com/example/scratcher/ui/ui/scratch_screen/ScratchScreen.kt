@@ -13,7 +13,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.scratcher.ui.ui.ScratchCard
 import com.example.scratcher.ui.ui.ScratchViewModel
@@ -27,15 +26,17 @@ fun ScratchScreen(navController: NavHostController, scratchViewModel: ScratchVie
     val scopes = rememberCoroutineScope()
 
     BackHandler {
-        if (scopes.isActive) {
-            scopes.cancel()
+        if (scratchViewModel.isLoading.value) {
+            if (scopes.isActive) {
+                scopes.cancel()
+            }
+            scratchViewModel.cancelTheOperation()
         }
-        scratchViewModel.cancelTheOperation()
         navController.popBackStack()
     }
 
     Box(Modifier.fillMaxSize()) {
-        ScratchCard(uuid = scratchViewModel.uuid.value, isActivated = scratchViewModel.iActivated.value, isLoading = scratchViewModel.isLoading.value)
+        ScratchCard(uuid = scratchViewModel.uuid.value, isActivated = scratchViewModel.isActivated.value, isLoading = scratchViewModel.isLoading.value)
         Row(
             Modifier
                 .align(Alignment.BottomCenter)

@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.scratcher.ui.ui.ScratchCard
 import com.example.scratcher.ui.ui.ScratchViewModel
@@ -23,8 +22,8 @@ import com.example.scratcher.ui.ui.ScratchViewModel
 @Composable
 fun MainScreen(navController: NavHostController, scratchViewModel: ScratchViewModel) {
 
-    val isActivated = scratchViewModel.iActivated
-    val isCardCodeVisible = scratchViewModel.isCardCodeVisible
+    val isActivated = scratchViewModel.isActivated
+    val isCardCodeVisible = scratchViewModel.uuid.value != null
 
     Box(Modifier.fillMaxSize()) {
         ScratchCard(uuid = scratchViewModel.uuid.value, isActivated.value)
@@ -48,7 +47,7 @@ fun MainScreen(navController: NavHostController, scratchViewModel: ScratchViewMo
             Button(
                 onClick = {
                     navController.navigate(Routes.ActivationScreen)
-                }, modifier = Modifier.weight(1f), enabled = isCardCodeVisible.value,
+                }, modifier = Modifier.weight(1f), enabled = isCardCodeVisible,
                 colors = ButtonDefaults.buttonColors(
                     disabledContentColor = Color.Gray,
                     disabledContainerColor = Color.LightGray

@@ -62,10 +62,14 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.hilt.android)
+    implementation(libs.volley)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose.v280beta05)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.okhttp)
+    implementation(libs.retrofit) // Retrofit dependency
+    implementation(libs.converter.gson) // Gson converter
 }
