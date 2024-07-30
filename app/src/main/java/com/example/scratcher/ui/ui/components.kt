@@ -29,21 +29,18 @@ fun BoxScope.ScratchCard(uuid: UUID? = UUID.randomUUID(), isActivated: Boolean =
 
 
     val currentStateOfCard = when {
-        isLoading -> CardState.LOADING
         isActivated -> CardState.ACTIVATED
         uuid != null -> CardState.VISIBLE
         else -> CardState.HIDDEN
     }
 
     val animateContainerColor = when (currentStateOfCard) {
-        CardState.LOADING -> MaterialTheme.colorScheme.primary
         CardState.HIDDEN -> MaterialTheme.colorScheme.primary
         CardState.VISIBLE -> MaterialTheme.colorScheme.secondary
         CardState.ACTIVATED -> MaterialTheme.colorScheme.secondary
     }
 
     val animateContentColor = when (currentStateOfCard) {
-        CardState.LOADING -> MaterialTheme.colorScheme.onPrimary
         CardState.HIDDEN -> MaterialTheme.colorScheme.onPrimary
         CardState.VISIBLE -> MaterialTheme.colorScheme.onSecondary
         CardState.ACTIVATED -> MaterialTheme.colorScheme.onSecondary
@@ -58,11 +55,14 @@ fun BoxScope.ScratchCard(uuid: UUID? = UUID.randomUUID(), isActivated: Boolean =
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center, modifier = Modifier.size(300.dp)) {
             AnimatedContent(targetState = currentStateOfCard) {
-                when (it) {
-                    CardState.LOADING -> CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
-                    CardState.HIDDEN -> Icon(imageVector = Icons.Default.Favorite, contentDescription = "", Modifier.size(50.dp))
-                    CardState.VISIBLE -> Text(text = uuid.toString(), Modifier.padding(16.dp), textAlign = TextAlign.Center)
-                    CardState.ACTIVATED -> Text(text = "Activated")
+                if (isLoading) {
+                    CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
+                } else {
+                    when (it) {
+                        CardState.HIDDEN -> Icon(imageVector = Icons.Default.Favorite, contentDescription = "", Modifier.size(50.dp))
+                        CardState.VISIBLE -> Text(text = uuid.toString(), Modifier.padding(16.dp), textAlign = TextAlign.Center)
+                        CardState.ACTIVATED -> Text(text = "Activated")
+                    }
                 }
             }
         }
@@ -70,7 +70,6 @@ fun BoxScope.ScratchCard(uuid: UUID? = UUID.randomUUID(), isActivated: Boolean =
 }
 
 enum class CardState {
-    LOADING,
     HIDDEN,
     VISIBLE,
     ACTIVATED

@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     kotlin("plugin.serialization") version "1.9.0"
     id("com.google.dagger.hilt.android")
+
 }
 
 android {
@@ -63,7 +64,10 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.hilt.android)
     implementation(libs.volley)
-    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.work)
+    implementation(libs.androidx.runtime.livedata)
+    kapt("androidx.hilt:hilt-compiler:1.2.0")
+    kapt("com.google.dagger:hilt-compiler:2.50")
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose.v280beta05)
     implementation(libs.kotlinx.serialization.json)
@@ -72,4 +76,9 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.retrofit) // Retrofit dependency
     implementation(libs.converter.gson) // Gson converter
+
+    implementation("androidx.work:work-runtime-ktx:2.8.0")
+    implementation(libs.androidx.startup.runtime)
+
+
 }

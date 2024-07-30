@@ -23,7 +23,8 @@ import com.example.scratcher.ui.ui.ScratchViewModel
 fun MainScreen(navController: NavHostController, scratchViewModel: ScratchViewModel) {
 
     val isActivated = scratchViewModel.isActivated
-    val isCardCodeVisible = scratchViewModel.uuid.value != null
+    val isActiveButtonEnabled = scratchViewModel.uuid.value != null || scratchViewModel.isActivated.value
+    val isScratchButtonEnabled = scratchViewModel.uuid.value == null
 
     Box(Modifier.fillMaxSize()) {
         ScratchCard(uuid = scratchViewModel.uuid.value, isActivated.value)
@@ -34,11 +35,17 @@ fun MainScreen(navController: NavHostController, scratchViewModel: ScratchViewMo
                 .padding(8.dp),
         ) {
 
-            Button(onClick = {
-                navController.navigate(
-                    Routes.ScratchScreen
-                )
-            }, modifier = Modifier.weight(1f)) {
+            Button(
+                onClick = {
+                    navController.navigate(
+                        Routes.ScratchScreen
+                    )
+                },
+                colors = ButtonDefaults.buttonColors(
+                    disabledContentColor = Color.Gray,
+                    disabledContainerColor = Color.LightGray
+                ), enabled = isScratchButtonEnabled, modifier = Modifier.weight(1f)
+            ) {
                 Text(text = "Scratch it!")
             }
 
@@ -47,7 +54,7 @@ fun MainScreen(navController: NavHostController, scratchViewModel: ScratchViewMo
             Button(
                 onClick = {
                     navController.navigate(Routes.ActivationScreen)
-                }, modifier = Modifier.weight(1f), enabled = isCardCodeVisible,
+                }, modifier = Modifier.weight(1f), enabled = isActiveButtonEnabled,
                 colors = ButtonDefaults.buttonColors(
                     disabledContentColor = Color.Gray,
                     disabledContainerColor = Color.LightGray

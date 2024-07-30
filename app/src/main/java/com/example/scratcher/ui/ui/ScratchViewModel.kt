@@ -1,20 +1,32 @@
 package com.example.scratcher.ui.ui
 
+import android.content.Context
+import android.provider.SyncStateContract
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.example.scratcher.ui.repositories.server.ActivateServerRepository
+import com.example.scratcher.ui.services.ActivateCardWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class ScratchViewModel @Inject constructor(
+    @ApplicationContext val context: Context,
+    private val workManager: WorkManager,
     val activateServerRepository: ActivateServerRepository
 ) : ViewModel() {
-
+    val workRequest = OneTimeWorkRequestBuilder<ActivateCardWorker>().build()
 
     var isLoading: MutableState<Boolean> = mutableStateOf(false)
         private set
@@ -24,6 +36,8 @@ class ScratchViewModel @Inject constructor(
 
     var isActivated: MutableState<Boolean> = mutableStateOf(false)
         private set
+
+    var workResult: LiveData<WorkInfo> = workManager.getWorkInfoByIdLiveData(workRequest.id)
 
     suspend fun generateUid() {
         isLoading.value = true
@@ -37,21 +51,8 @@ class ScratchViewModel @Inject constructor(
         uuid.value = null //prevent possible race condition
     }
 
-    suspend fun activateCard() {
-
-        isLoading.value = true
-        try {
-            val result = activateServerRepository.getVersion()
-            if (result.android.toInt() > 277028) {
-                isLoading.value = false
-                isActivated.value = true
-            } else {
-                //todo error modal
-                Log.e("ScratchViewModel", "error: ${result.android}")
-            }
-        } catch (e: Exception) {
-            Log.e("ScratchViewModel", "activateCard: ${e.message}")
-        }
+    fun activateCard() {
+        workManager.enqueueUniqueWork("Test", ExistingWorkPolicy.REPLACE, workRequest)
     }
 
 }
