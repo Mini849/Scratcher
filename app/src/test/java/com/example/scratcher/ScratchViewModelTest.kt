@@ -1,3 +1,5 @@
+package com.example.scratcher
+
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
