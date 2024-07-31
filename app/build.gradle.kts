@@ -4,7 +4,6 @@ plugins {
     kotlin("kapt")
     kotlin("plugin.serialization") version "1.9.0"
     id("com.google.dagger.hilt.android")
-
 }
 
 android {
@@ -66,33 +65,31 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.hilt.android)
     implementation(libs.volley)
-    implementation(libs.androidx.hilt.work)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.firebase.crashlytics.buildtools)
-    testImplementation(libs.junit.junit)
-    kapt(libs.androidx.hilt.compiler)
+
     kapt(libs.hilt.compiler)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.hilt.work)
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose.v280beta05)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.okhttp)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.startup.runtime)
 
     testImplementation("org.mockito:mockito-core:4.8.0")
     testImplementation("org.mockito:mockito-inline:4.8.0")
     testImplementation("org.mockito:mockito-android:4.8.0")
+
     testImplementation(libs.junit)
     testImplementation(libs.androidx.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
-
-
-
 }
