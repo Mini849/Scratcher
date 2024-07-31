@@ -14,8 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.scratcher.R
 import com.example.scratcher.ui.ui.ScratchCard
 import com.example.scratcher.ui.ui.ScratchViewModel
 
@@ -23,7 +25,7 @@ import com.example.scratcher.ui.ui.ScratchViewModel
 fun MainScreen(navController: NavHostController, scratchViewModel: ScratchViewModel) {
 
     val isActivated = scratchViewModel.isActivated
-    val isActiveButtonEnabled = scratchViewModel.uuid.value != null || scratchViewModel.isActivated.value
+    val isActiveButtonEnabled = scratchViewModel.uuid.value != null && !scratchViewModel.isActivated.value
     val isScratchButtonEnabled = scratchViewModel.uuid.value == null
 
     Box(Modifier.fillMaxSize()) {
@@ -46,7 +48,7 @@ fun MainScreen(navController: NavHostController, scratchViewModel: ScratchViewMo
                     disabledContainerColor = Color.LightGray
                 ), enabled = isScratchButtonEnabled, modifier = Modifier.weight(1f)
             ) {
-                Text(text = "Scratch it!")
+                Text(text = stringResource(R.string.scratch_it))
             }
 
             Spacer(modifier = Modifier.size(8.dp))
@@ -60,7 +62,7 @@ fun MainScreen(navController: NavHostController, scratchViewModel: ScratchViewMo
                     disabledContainerColor = Color.LightGray
                 )
             ) {
-                Text(text = "Activate!")
+                Text(text = stringResource(id = R.string.activate))
             }
         }
     }

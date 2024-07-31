@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Scratcher</string>
+    <string name="error_has_occurred">Error has occurred</string>
+    <string name="activate">Activate!</string>
+    <string name="error">Error</string>
+    <string name="ok">Ok</string>
+    <string name="scratch_it">Scratch it!</string>
 </resources>

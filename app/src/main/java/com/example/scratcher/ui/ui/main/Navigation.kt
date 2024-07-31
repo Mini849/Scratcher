@@ -39,7 +39,7 @@ fun NavHost(navController: NavHostController = rememberNavController()) {
         }
         composable<Routes.ActivationScreen> {
             val viewModel = getCreateScratchViewModel(it, navController)
-            ActivationScreen(navController, viewModel)
+            ActivationScreen(viewModel)
         }
         composable<Routes.ScratchScreen> {
             val viewModel = getCreateScratchViewModel(it, navController)

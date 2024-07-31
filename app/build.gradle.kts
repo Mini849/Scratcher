@@ -24,6 +24,10 @@ android {
         }
     }
 
+    hilt {
+        enableAggregatingTask = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -66,19 +70,29 @@ dependencies {
     implementation(libs.volley)
     implementation(libs.androidx.hilt.work)
     implementation(libs.androidx.runtime.livedata)
-    kapt("androidx.hilt:hilt-compiler:1.2.0")
-    kapt("com.google.dagger:hilt-compiler:2.50")
+    implementation(libs.firebase.crashlytics.buildtools)
+    testImplementation(libs.junit.junit)
+    kapt(libs.androidx.hilt.compiler)
+    kapt(libs.hilt.compiler)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose.v280beta05)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.okhttp)
-    implementation(libs.retrofit) // Retrofit dependency
-    implementation(libs.converter.gson) // Gson converter
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
-    implementation("androidx.work:work-runtime-ktx:2.8.0")
+    implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.startup.runtime)
+
+    testImplementation("org.mockito:mockito-core:4.8.0")
+    testImplementation("org.mockito:mockito-inline:4.8.0")
+    testImplementation("org.mockito:mockito-android:4.8.0")
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
+
 
 
 }

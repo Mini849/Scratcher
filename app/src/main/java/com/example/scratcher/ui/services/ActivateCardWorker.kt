@@ -18,7 +18,6 @@ class ActivateCardWorker @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         return try {
-            delay(5000) // simulate network delay
             val result = activateServerRepository.getVersion()
             if (result.android.toInt() > 277028) {
                 Result.success()

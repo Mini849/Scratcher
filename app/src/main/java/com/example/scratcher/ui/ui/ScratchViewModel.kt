@@ -24,7 +24,6 @@ import javax.inject.Inject
 class ScratchViewModel @Inject constructor(
     @ApplicationContext val context: Context,
     private val workManager: WorkManager,
-    val activateServerRepository: ActivateServerRepository
 ) : ViewModel() {
     val workRequest = OneTimeWorkRequestBuilder<ActivateCardWorker>().build()
 
@@ -37,7 +36,7 @@ class ScratchViewModel @Inject constructor(
     var isActivated: MutableState<Boolean> = mutableStateOf(false)
         private set
 
-    var workResult: LiveData<WorkInfo> = workManager.getWorkInfoByIdLiveData(workRequest.id)
+    var workResult: LiveData<WorkInfo>? = workManager.getWorkInfoByIdLiveData(workRequest.id)
 
     suspend fun generateUid() {
         isLoading.value = true
@@ -52,7 +51,10 @@ class ScratchViewModel @Inject constructor(
     }
 
     fun activateCard() {
-        workManager.enqueueUniqueWork("Test", ExistingWorkPolicy.REPLACE, workRequest)
+        workManager.enqueueUniqueWork(SCRATCH_ACTION, ExistingWorkPolicy.REPLACE, workRequest)
     }
 
+    companion object {
+        const val SCRATCH_ACTION = "SCRATCH_ACTION"
+    }
 }
