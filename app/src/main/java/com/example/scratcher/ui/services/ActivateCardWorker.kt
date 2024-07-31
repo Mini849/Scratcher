@@ -7,7 +7,6 @@ import androidx.work.WorkerParameters
 import com.example.scratcher.ui.repositories.server.ActivateServerRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.delay
 
 @HiltWorker
 class ActivateCardWorker @AssistedInject constructor(

@@ -1,7 +1,6 @@
 package com.example.scratcher.ui.ui
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
@@ -18,11 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import java.util.UUID
-import javax.annotation.meta.When
 
 @Composable
 fun BoxScope.ScratchCard(uuid: UUID? = UUID.randomUUID(), isActivated: Boolean = false, isLoading: Boolean = false) {

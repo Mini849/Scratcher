@@ -1,18 +1,14 @@
 package com.example.scratcher.ui.ui
 
 import android.content.Context
-import android.provider.SyncStateContract
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
-import com.example.scratcher.ui.repositories.server.ActivateServerRepository
 import com.example.scratcher.ui.services.ActivateCardWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
